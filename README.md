@@ -25,3 +25,5 @@ Install Dependencies: npm i
 
 Start application: npm start
 
+Api endpoint can be tested using POSTMAN
+
