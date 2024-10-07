@@ -1,5 +1,6 @@
 const SimCard = require("../models/simcard-model.js");
 
+//activate sim card
 exports.activate= async (req,res)=>{
 
     try {
@@ -19,11 +20,13 @@ exports.activate= async (req,res)=>{
             simCard});
 
     } catch (error) {
-        res.status(500).send('Server error.');
+        res.status(500).send('Internal server error.');
         console.log(error);
     }
 }
 
+
+//deactivate sim card
 exports.deactivate=async(req,res)=>{
 
     try{
@@ -57,6 +60,9 @@ exports.deactivate=async(req,res)=>{
     }
 }
 
+
+//get sim card details
+
 exports.simDetails=async(req,res)=>{
 
     const { simNumber } = req.params;
@@ -65,8 +71,12 @@ exports.simDetails=async(req,res)=>{
         if (!simCard) {
             return res.status(404).send('SIM card not found.');
         }
-        res.status(200).json(simCard);
-    } catch (err) {
-        res.status(500).send('Server error.');
+        res.status(200).json({
+            message: 'SIM card details fetched successfully.',
+            simCard
+        });
+    } catch (error) {
+        res.status(500).send('Internal server error.');
+        console.log(error);
     }
 }
