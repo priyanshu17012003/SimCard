@@ -59,28 +59,14 @@ exports.deactivate=async(req,res)=>{
 
 exports.simDetails=async(req,res)=>{
 
-    try{
-
-        const getData=await SimCard.find();
-
-        if(!getData)
-        {
-            res.status(404).json({
-                message:"Data not found"
-            })
+    const { simNumber } = req.params;
+    try {
+        const simCard = await SimCard.findOne({ sim_number: simNumber });
+        if (!simCard) {
+            return res.status(404).send('SIM card not found.');
         }
-
-        res.status(200).json({
-            message:"Data found",
-            getData
-        })
-
-    }
-    catch(error)
-    {
-        res.status(500).send(
-            "Internal server error"
-        )
-        console.log(error);
+        res.status(200).json(simCard);
+    } catch (err) {
+        res.status(500).send('Server error.');
     }
 }
